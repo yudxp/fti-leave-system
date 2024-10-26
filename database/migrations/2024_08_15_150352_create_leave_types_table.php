@@ -16,18 +16,18 @@ class CreateLeaveTypesTable extends Migration
     {
         Schema::create('leave_types', function (Blueprint $table) {
             $table->id();
-            $table->string('type')->unique();
+            $table->string('name')->unique();
             $table->timestamps();
         });
 
         // Insert the leave types
         DB::table('leave_types')->insert([
-            ['type' => 'Annual Leave'],
-            ['type' => 'Sick Leave'],
-            ['type' => 'Important Leave'],
-            ['type' => 'Long Leave'],
-            ['type' => 'Maternity Leave'],
-            ['type' => 'Leave Without State Expenses'],
+            ['name' => 'Annual Leave'],
+            ['name' => 'Sick Leave'],
+            ['name' => 'Important Leave'],
+            ['name' => 'Long Leave'],
+            ['name' => 'Maternity Leave'],
+            ['name' => 'Leave Without State Expenses'],
         ]);
     }
 

@@ -25,7 +25,7 @@ class LeaveType extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['type'];
+    protected $fillable = ['name'];
 
 
 }

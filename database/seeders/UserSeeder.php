@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
         $this->command->warn(PHP_EOL . 'Creating standard role...');
         $role = Role::create(['name' => 'Employee']);
 
-        $includedPermission = ['Employee', 'Leave'];
+        $includedPermission = ['Employee', 'Leave', 'LeaveRequest'];
         $permissions = Permission::where(function ($query) use ($includedPermission) {
             foreach ($includedPermission as $value) {
                 $query->orWhere('name', 'like', '%' . $value . '%');
