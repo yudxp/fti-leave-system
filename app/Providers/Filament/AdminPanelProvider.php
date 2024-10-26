@@ -21,6 +21,7 @@ use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugi
 use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
 use Filament\Navigation\MenuItem;
 use Joaopaulolndev\FilamentEditProfile\Pages\EditProfilePage;
+use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
 
 
 class AdminPanelProvider extends PanelProvider
@@ -57,11 +58,14 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                \Hasnayeen\Themes\Http\Middleware\SetTheme::class
             ])
             ->plugins([
                 FilamentSpatieRolesPermissionsPlugin::make(),
                 \TomatoPHP\FilamentUsers\FilamentUsersPlugin::make(),
-                FilamentEditProfilePlugin::make()->shouldRegisterNavigation(false)
+                FilamentEditProfilePlugin::make()->shouldRegisterNavigation(false),
+                FilamentBackgroundsPlugin::make(),
+                \Hasnayeen\Themes\ThemesPlugin::make()
             ])
             ->userMenuItems([
                 'profile' => MenuItem::make()
