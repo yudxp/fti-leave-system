@@ -37,5 +37,29 @@ class UserSeeder extends Seeder
         ]);
         $superadmin->assignRole('Super Admin');
         $superadmin->givePermissionTo(Permission::all());
+
+
+        /* Power User Role */
+        $this->command->warn(PHP_EOL . 'Creating standard role...');
+        $role = Role::create(['name' => 'Employee']);
+
+        $includedPermission = ['Employee', 'Leave'];
+        $permissions = Permission::where(function ($query) use ($includedPermission) {
+            foreach ($includedPermission as $value) {
+                $query->orWhere('name', 'like', '%' . $value . '%');
+            }
+        })->pluck('name')->toArray();
+
+        $role->givePermissionTo($permissions);
+        $this->command->info('Employee role has been created.');
+
+        // Create a power user and assign the Power User role
+        $employee  = User::create([
+            'name' => 'Employee',
+            'email' => 'employee@database.com',
+            'password' => Hash::make('123456'),
+        ]);
+        $employee->assignRole('Employee');
+        $employee->givePermissionTo($permissions);
     }
 }

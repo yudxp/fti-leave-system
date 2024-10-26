@@ -57,6 +57,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentSpatieRolesPermissionsPlugin::make(),
+                \TomatoPHP\FilamentUsers\FilamentUsersPlugin::make()
             ])
             ->authMiddleware([
                 Authenticate::class,
