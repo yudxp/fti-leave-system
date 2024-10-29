@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('position');
             $table->string('department');
             $table->string('nip')->unique();
-            $table->integer('working_period');
+            $table->date('start_working')->default(now());
+            $table->string('email')->default('ia@itera.ac.id');
+            $table->string('signature')->default('/asset/signature');
             $table->timestamps();
         });
     }

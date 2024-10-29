@@ -37,15 +37,6 @@ class LeaveRequestResource extends Resource
                     ->required(),
                 Forms\Components\Textarea::make('reason')
                     ->columnSpanFull(),
-                Forms\Components\Select::make('status')
-                    ->options([
-                        'pending' => 'Pending',
-                        'approved' => 'Approved',
-                        'rejected' => 'Rejected',
-                    ])
-                    ->required(),
-                Forms\Components\Textarea::make('admin_remarks')
-                    ->columnSpanFull(),
             ]);
     }
 

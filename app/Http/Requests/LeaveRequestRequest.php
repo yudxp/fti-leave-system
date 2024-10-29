@@ -27,8 +27,6 @@ class LeaveRequestRequest extends FormRequest
 			'start_date' => 'required',
 			'end_date' => 'required',
 			'reason' => 'string',
-			'status' => 'required',
-			'admin_remarks' => 'string',
         ];
     }
 }

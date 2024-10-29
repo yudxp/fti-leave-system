@@ -38,24 +38,15 @@ class EmployeeResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('nip')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('working_period')
+                    ->minLength(18)
+                    ->maxLength(18),
+                Forms\Components\DatePicker::make('start_working')
+                    ->required(),
+                Forms\Components\TextInput::make('email')
                     ->required()
-                    ->numeric(),
-                Select::make('type of leave')
-                ->options([
-                    'annual leave' => 'Annual',
-                    'maternity leave' => 'Maternity',
-                    'sick leave' => 'Sick',
-                ]),
-                DatePicker::make('start leave')
-                    ->required(),
-                DatePicker::make('end leave')
-                    ->required(),
-                Forms\Components\Textarea::make('leave reason')
-                    ->required(),
-                Forms\Components\Textarea::make('leave address'),
-                Forms\Components\TextInput::make('Phone number')
+                    ->maxLength(255)
+                    ->email()
+                    ->regex('/^[\w\.-]+@[\w\.-]+\.itera\.ac\.id$/', 'Email must end with @department.itera.ac.id')
             ]);
     }
 
@@ -71,8 +62,10 @@ class EmployeeResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nip')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('working_period')
+                Tables\Columns\TextColumn::make('start_working')
                     ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('email')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
