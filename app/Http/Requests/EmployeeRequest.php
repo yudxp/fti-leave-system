@@ -26,7 +26,9 @@ class EmployeeRequest extends FormRequest
 			'position' => 'required|string',
 			'department' => 'required|string',
 			'nip' => 'required|string',
-			'working_period' => 'required',
+			'start_working' => 'required',
+            'email' => 'required|string',
+            'signature' => 'required',
         ];
     }
 }

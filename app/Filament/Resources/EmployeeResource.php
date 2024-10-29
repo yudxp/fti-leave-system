@@ -47,7 +47,12 @@ class EmployeeResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->email()
-                    ->regex('/^[\w\.-]+@[\w\.-]+\.itera\.ac\.id$/', 'Email must end with @department.itera.ac.id')
+                    ->regex('/^[\w\.-]+@([\w-]+\.)*itera\.ac\.id$/') // Allows subdomains and main domain of itera.ac.id
+                    ->helperText('Only emails from @itera.ac.id or its subdomains are allowed'),
+                Forms\Components\FileUpload::make('signature')
+                    ->directory('uploads/signatures')
+                    ->acceptedFileTypes(['image/png'])
+                    ->required(),
             ]);
     }
 

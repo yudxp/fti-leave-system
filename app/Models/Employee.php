@@ -12,7 +12,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property $position
  * @property $department
  * @property $nip
- * @property $working_period
+ * @property $start_working
+ * @property $email
+ * @property $signature
  * @property $created_at
  * @property $updated_at
  *
@@ -30,7 +32,7 @@ class Employee extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name', 'position', 'department', 'nip', 'working_period'];
+    protected $fillable = ['name', 'position', 'department', 'nip', 'start_working', 'email', 'signature'];
 
 
 }
