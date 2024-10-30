@@ -51,8 +51,8 @@ class EmployeeResource extends Resource
                     ->helperText('Only emails from @itera.ac.id or its subdomains are allowed'),
                 Forms\Components\FileUpload::make('signature')
                     ->directory('uploads/signatures')
-                    ->acceptedFileTypes(['image/png'])
-                    ->required(),
+                    ->acceptedFileTypes(['image/png']),
+                    // ->required(),
             ]);
     }
 
