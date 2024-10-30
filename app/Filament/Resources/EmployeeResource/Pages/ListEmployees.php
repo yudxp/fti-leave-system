@@ -14,6 +14,14 @@ class ListEmployees extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+            \EightyNine\ExcelImport\ExcelImportAction::make()->validateUsing(
+                        ['name' => 'required'],
+                        ['position.required' => 'The position name is required.']
+                    )->slideOver()->use(\App\Imports\EmployeeImport::class)
+                        ->color("primary")
+                        ->afterImport(function ($data, $livewire, $excelImportAction) {
+                            $livewire->notify('success', 'Data imported successfully');
+                        }),
         ];
     }
 }
