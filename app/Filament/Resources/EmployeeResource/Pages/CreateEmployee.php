@@ -9,6 +9,7 @@ use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Filament\Notifications\Notification;
 
 class CreateEmployee extends CreateRecord
 {
@@ -16,6 +17,21 @@ class CreateEmployee extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
+        try {
+            validator($data, [
+                'email' => ['required', 'email', 'unique:users,email'],
+            ], [
+                'email.unique' => 'This email is already registered in the system.',
+            ])->validate();
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Notification::make()
+                ->title('Error')
+                ->body('This email is already registered in the system.')
+                ->danger()
+                ->send();
+            throw $e;
+        }
+
         $user = new User();
         $user->name = $data['name'];
         $user->email = $data['email'];
