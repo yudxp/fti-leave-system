@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\FileUpload;
+use Saade\FilamentAutograph\Forms\Components\SignaturePad;
 
 class EmployeeResource extends Resource
 {
@@ -39,6 +40,7 @@ class EmployeeResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('nip')
                     ->required()
+                    ->label('NIP')
                     ->minLength(18)
                     ->maxLength(18),
                 Forms\Components\DatePicker::make('start_working')
@@ -49,10 +51,11 @@ class EmployeeResource extends Resource
                     ->email()
                     ->regex('/^[\w\.-]+@([\w-]+\.)*itera\.ac\.id$/') // Allows subdomains and main domain of itera.ac.id
                     ->helperText('Only emails from @itera.ac.id or its subdomains are allowed'),
-                Forms\Components\FileUpload::make('signature')
-                    ->directory('uploads/signatures')
-                    ->acceptedFileTypes(['image/png']),
-                    // ->required(),
+                // Forms\Components\FileUpload::make('signature')
+                //     ->directory('uploads/signatures')
+                //     ->acceptedFileTypes(['image/png']),
+                // ->required(),
+                SignaturePad::make('signature')
             ]);
     }
 

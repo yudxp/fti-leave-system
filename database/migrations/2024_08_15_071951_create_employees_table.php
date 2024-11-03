@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('department');
             $table->string('nip')->unique();
             $table->date('start_working');
-            $table->string('email');
+            // $table->string('email');
             $table->string('signature')->nullable();
             // $table->string('signature');
             $table->timestamps();
