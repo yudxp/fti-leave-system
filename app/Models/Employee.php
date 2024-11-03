@@ -32,7 +32,7 @@ class Employee extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name', 'position', 'department', 'nip', 'start_working', 'email', 'signature'];
+    protected $fillable = ['name', 'position', 'department', 'nip', 'start_working', 'signature'];
 
 
 }

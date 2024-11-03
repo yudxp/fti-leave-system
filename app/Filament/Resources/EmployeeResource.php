@@ -40,6 +40,7 @@ class EmployeeResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('nip')
                     ->required()
+                    ->unique()
                     ->label('NIP')
                     ->minLength(18)
                     ->maxLength(18),
