@@ -16,6 +16,9 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\FileUpload;
 use Saade\FilamentAutograph\Forms\Components\SignaturePad;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction as TablesExportAction;
+use pxlrbt\FilamentExcel\Columns\Column;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class EmployeeResource extends Resource
 {
@@ -75,7 +78,7 @@ class EmployeeResource extends Resource
                 Tables\Columns\TextColumn::make('start_working')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('email')
+                Tables\Columns\TextColumn::make('user.email')->label('Email')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -91,6 +94,14 @@ class EmployeeResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+            ])
+            ->headerActions([
+                TablesExportAction::make()->exports([
+                    ExcelExport::make()->fromTable()->withColumns([
+                        Column::make('nip')->heading('NIP'),
+                        Column::make('user.email')->heading('Email'),
+                    ])
+                ])->label('Export'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -19,6 +19,7 @@ class CreateEmployee extends CreateRecord
         $user->email = $data['email'];
         $user->password = Hash::make('123456'); //default password
         $user->save();
+        $data['user_id'] = $user->id;
         return $data;
     }
 }
