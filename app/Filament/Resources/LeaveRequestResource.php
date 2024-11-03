@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Actions\Action;
 
 class LeaveRequestResource extends Resource
 {
@@ -26,6 +27,7 @@ class LeaveRequestResource extends Resource
                 Forms\Components\Select::make('employee_id')
                     ->relationship('employee', 'name')
                     ->required()
+                    ->preload()
                     ->searchable(),
                 Forms\Components\Select::make('leave_type_id')
                     ->relationship('leaveType', 'name')
@@ -71,6 +73,9 @@ class LeaveRequestResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Action::make('approve')->url(fn(LeaveRequest $record) => route('leave-requests.approve', $record))->label('Approve'),
+                Action::make('reject')->url(fn(LeaveRequest $record) => route('leave-requests.reject', $record))->label('Reject'),
+                Action::make('print')->url(fn(LeaveRequest $record) => route('leave-requests.print', $record))->label('Print'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
