@@ -74,11 +74,6 @@
 <h3 class="header">FORMULIR PERMINTAAN DAN PEMBERIAN CUTI</h3>
 
 <form action="process_leave.php" method="post">
-<!-- <style>
-    .form-table {
-        margin-bottom: 20px; /* Adjust the value as needed */
-    }
-</style> -->
 <!-- I. DATA PEGAWAI -->
 <table class="form-table">
     <tr>
