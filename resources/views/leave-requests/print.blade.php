@@ -1,3 +1,25 @@
+<?php
+// Set the timezone to Jakarta, Indonesia
+date_default_timezone_set('Asia/Jakarta');
+
+// Get today's date
+$today = new DateTime();
+
+// Define arrays for Indonesian day and month names
+$weekdays = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+$months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+// Get the day, month, and year
+$dayOfWeek = $weekdays[$today->format('w')];  // Day of the week (0-6)
+$dayOfMonth = $today->format('j');            // Day of the month
+$month = $months[$today->format('n') - 1];    // Month (1-12)
+$year = $today->format('Y');                   // Full year
+
+// Format the date as "Day, Date Month Year" in Indonesian (e.g., "Kamis, 9 November 2024")
+$formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
+
+// Display the date
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,12 +33,12 @@
         }
         .form-table {
             width: 100%;
-            max-width: 800px; /* Adjust for A4 width */
+            max-width: 800px; 
             border-collapse: collapse;
             margin-bottom: 20px;
             page-break-inside: avoid;
         }
-        .form-table td, .form-table th {
+        .form-table td, .form-table th, .form-table tr {
             border: 1px solid #000;
             padding: 8px;
         }
@@ -24,41 +46,83 @@
             text-align: center;
             font-weight: bold;
         }
+        .kop-surat {
+            display: flex;
+            font-family: "Times New Roman", Times, serif;
+            transform: scale(1.2);
+            flex-direction: row;
+            border-bottom: 2px solid #000;
+            margin-bottom: 30px;
+        }
+        .logo-itera {
+            width: 30%;
+        }
+        .kop-text {
+            width: 70%;
+            text-align: center;
+        }
+        .tujuan-surat {
+            width: 100%;
+            margin-bottom: 120px;
+        }
     </style>
 </head>
 <body>
+
+<div class="kop-surat"> 
+    <div class="logo-itera"><img src="/images/logo.svg" width: 30%/></div>
+    <div class="kop-text">
+        <h3>KEMENTRIAN PENDIDIKAN, KEBUDAYAAN, <br/> RISET, DAN TEKNOLOGI</h3>
+        <h2>INSTITUT TEKNOLOGI SUMATERA</h2>
+        <p>Jalan Terusan Ryacudu Way Hui, Kecamatan Jati Agung, Lampung Selatan 35365</p>
+        <p>Telepon: (0721) 8030188</p>
+        <p>Email: <u>pusat@itera.ac.id<u/>, Website : http://itera.ac.id</p>
+    </div>
+</div>
+
+<div class="tujuan-surat">
+    <div style="float: right;">
+        <p> Lampung Selatan, <?php echo $formattedDate; ?></p>
+        <p> Kepada Yth. Kepala Biro Akademik, Perencanaan, dan Umum </p>
+        <p> Institut Teknologi Sumatera </p>
+        <p> di </p>
+        <p style="padding-left: 40px;"> Lampung Selatan </p>
+    </div>
+</div>
 
 <h3 class="header">FORMULIR PERMINTAAN DAN PEMBERIAN CUTI</h3>
 
 <!-- <form action="process_leave.php" method="post"> -->
 <!-- I. DATA PEGAWAI -->
 <table class="form-table">
-    <tr>
-        <th colspan="4" style="text-align: left;" style="width: 100%;">I. DATA PEGAWAI</th>
-    </tr>
-    <tr>
-        <td style="width: 15%;">Nama</td>
-        <td style="width: 35%;">{{ $record->employee->name }}</td>
-        <td style="width: 15%;">NIP/NRK</td>
-        <td style="width: 60%;"> {{ $record->employee->nip }}</td>
-    </tr>
-    <tr>
-        <td>Jabatan</td>
-        <td>{{ $record->employee->position }}</td>
-        <td>Masa Kerja</td>
-        <td>
-            <?php
-            $startDate = new DateTime($record->employee->start_working);
-            $currentDate = new DateTime();
-            $interval = $startDate->diff($currentDate);
-            echo $interval->y . ' tahun ';
-            ?>
-        </td>
-    </tr>
-    <tr>
-        <td>Unit Kerja</td>
-        <td colspan="4">{{ $record->employee->department }}</td>
-    </tr>
+    <tbody>
+        <tr>
+            <th colspan="4" style="text-align: left; width: 100%; border-right: 1px solid #000;">I. DATA PEGAWAI</th>
+        </tr>
+        <tr>
+            <td style="width: 15%;">Nama</td>
+            <td style="width: 35%;">{{ $record->employee->name }}</td>
+            <td style="width: 15%;">NIP/NRK</td>
+            <td style="width: 60%; border-right: 1px solid #000;"> {{ $record->employee->nip }}</td>
+        </tr>
+        <tr>
+            <td>Jabatan</td>
+            <td>{{ $record->employee->position }}</td>
+            <td>Masa Kerja</td>
+            <td style="border-right: 1px solid #000;">
+                <?php
+                $startDate = new DateTime($record->employee->start_working);
+                $currentDate = new DateTime();
+                $interval = $startDate->diff($currentDate);
+                echo $interval->y . ' tahun ';
+                ?>
+            </td>
+        </tr>
+        <tr>
+            <td>Unit Kerja</td>
+            <td colspan="4">{{ $record->employee->department }}</td>
+        </tr>
+    </tbody>
 </table>
 
 <!-- II. JENIS CUTI YANG DIAMBIL -->
@@ -192,7 +256,7 @@
     <tr>
         <td style="width: 60%;"></td>
         <td style="width: 10%;">TELP</td>
-        <td style="width: 30%;">*your number</td>
+        <td style="width: 30%; border-right: 1px solid #000">*your number</td>
     </tr>
     <tr>
         <td>
