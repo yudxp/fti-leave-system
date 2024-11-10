@@ -26,6 +26,7 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
     <meta http-equiv="Content-Type" content="charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leave Request Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { 
             font-family: Arial, sans-serif, DejaVu Sans Mono; 
@@ -90,12 +91,12 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
     </div>
 </div>
 
-<h3 class="header">FORMULIR PERMINTAAN DAN PEMBERIAN CUTI</h3>
+<h3 class="header text-center">FORMULIR PERMINTAAN DAN PEMBERIAN CUTI</h3>
 
 <!-- <form action="process_leave.php" method="post"> -->
 <!-- I. DATA PEGAWAI -->
-<table class="form-table">
-    <tbody>
+<table class="form-table table table-bordered">
+    <tbody class="table-bordered">
         <tr>
             <th colspan="4" style="text-align: left; width: 100%; border-right: 1px solid #000;">I. DATA PEGAWAI</th>
         </tr>

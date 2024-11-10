@@ -7,15 +7,17 @@ use Illuminate\Http\Request;
 use App\Models\LeaveRequest;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Notifications\Notification;
+
 class LeaveRequestController extends Controller
 {
     //
     public function approve(LeaveRequest $record)
     {
-        $record->update(['status' => 'approved']);
+        $record->status = 'approved';
+        $record->save();
 
         $recipient = Employee::find($record->employee_id)->user;
- 
+
         Notification::make()
             ->title('Leave request approved')
             ->sendToDatabase($recipient);
@@ -25,7 +27,16 @@ class LeaveRequestController extends Controller
 
     public function reject(LeaveRequest $record)
     {
-        dd($record);
+        $record->status = 'rejected';
+        $record->save();
+
+        $recipient = Employee::find($record->employee_id)->user;
+
+        Notification::make()
+            ->title('Leave request rejected')
+            ->sendToDatabase($recipient);
+
+        return redirect()->back()->with('success', 'Leave request rejected successfully');
     }
 
     public function print(LeaveRequest $record)

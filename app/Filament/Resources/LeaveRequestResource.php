@@ -73,9 +73,9 @@ class LeaveRequestResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Action::make('approve')->url(fn(LeaveRequest $record) => route('leave-requests.approve', $record))->label('Approve'),
-                Action::make('reject')->url(fn(LeaveRequest $record) => route('leave-requests.reject', $record))->label('Reject'),
-                Action::make('print')->url(fn(LeaveRequest $record) => route('leave-requests.print', $record))->label('Print'),
+                Action::make('approve')->url(fn(LeaveRequest $record) => route('leave-requests.approve', $record))->label('Approve')->icon('heroicon-o-check-circle')->hidden(fn ($record) => $record->status == 'approved'),
+                Action::make('reject')->url(fn(LeaveRequest $record) => route('leave-requests.reject', $record))->label('Reject')->icon('heroicon-o-x-circle')->hidden(fn ($record) => $record->status == 'rejected'),
+                Action::make('print')->url(fn(LeaveRequest $record) => route('leave-requests.print', $record))->label('Print')->icon('heroicon-o-printer')->hidden(fn ($record) => $record->status == 'rejected'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
