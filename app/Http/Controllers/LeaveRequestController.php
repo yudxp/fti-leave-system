@@ -11,7 +11,8 @@ class LeaveRequestController extends Controller
     //
     public function approve(LeaveRequest $record)
     {
-        dd($record);
+        $record->update(['status' => 'approved']);
+        return redirect()->back()->with('success', 'Leave request approved successfully');
     }
 
     public function reject(LeaveRequest $record)
