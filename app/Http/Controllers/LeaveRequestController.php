@@ -43,6 +43,7 @@ class LeaveRequestController extends Controller
     {
         $record->load(['employee', 'leaveType']);
         $pdf = Pdf::loadView('leave-requests.print', compact('record'));
-        return $pdf->download('leave-request.pdf');
+        // return $pdf->download('leave-request.pdf');
+        return $pdf->stream('leave-request.pdf');
     }
 }

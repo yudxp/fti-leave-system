@@ -53,17 +53,18 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
             transform: scale(1.2);
             flex-direction: row;
             border-bottom: 2px solid #000;
+            margin-left: 10%;
+            margin-right: 10%;
             margin-bottom: 30px;
         }
         .logo-itera {
             width: 30%;
         }
         .kop-text {
-            width: 70%;
             text-align: center;
         }
         .tujuan-surat {
-            width: 100%;
+            width: 95%;
             margin-bottom: 120px;
         }
     </style>
@@ -71,13 +72,15 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
 <body>
 
 <div class="kop-surat"> 
-    <div class="logo-itera"><img src="/images/logo.svg" width: 30%/></div>
+    <div class="logo-itera">
+        <img src="{{ asset('images/Logo_ITERA.png') }}"/>
+    </div>
     <div class="kop-text">
         <h3>KEMENTRIAN PENDIDIKAN, KEBUDAYAAN, <br/> RISET, DAN TEKNOLOGI</h3>
         <h2>INSTITUT TEKNOLOGI SUMATERA</h2>
         <p>Jalan Terusan Ryacudu Way Hui, Kecamatan Jati Agung, Lampung Selatan 35365</p>
         <p>Telepon: (0721) 8030188</p>
-        <p>Email: <u>pusat@itera.ac.id<u/>, Website : http://itera.ac.id</p>
+        <p>Email: <u>pusat@itera.ac.id</u>, Website : <u>http://itera.ac.id</u></p>
     </div>
 </div>
 
@@ -93,12 +96,12 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
 
 <h3 class="header text-center">FORMULIR PERMINTAAN DAN PEMBERIAN CUTI</h3>
 
-<!-- <form action="process_leave.php" method="post"> -->
+
 <!-- I. DATA PEGAWAI -->
 <table class="form-table table table-bordered">
     <tbody class="table-bordered">
         <tr>
-            <th colspan="4" style="text-align: left; width: 100%; border-right: 1px solid #000;">I. DATA PEGAWAI</th>
+            <th colspan="4" style="text-align: left">I. DATA PEGAWAI</th>
         </tr>
         <tr>
             <td style="width: 15%;">Nama</td>
@@ -121,7 +124,9 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
         </tr>
         <tr>
             <td>Unit Kerja</td>
-            <td colspan="4">{{ $record->employee->department }}</td>
+            <td>{{ $record->employee->department }}</td>
+            <td></td>
+            <td></td>
         </tr>
     </tbody>
 </table>
@@ -250,20 +255,20 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
 </table>
 
 <!-- VI. ALAMAT SELAMA MENJALANKAN CUTI -->
-<table class="form-table">
+<table class="form-table" style="border-collapse: collapse; width: 100%;">
     <tr>
-        <th colspan="3" style="text-align: left;" style="width: 100%;">VI. ALAMAT SELAMA MENJALANKAN CUTI</th>
+        <th colspan="3" style="text-align: left; border: 1px solid #000;">VI. ALAMAT SELAMA MENJALANKAN CUTI</th>
     </tr>
     <tr>
-        <td style="width: 60%;"></td>
-        <td style="width: 10%;">TELP</td>
-        <td style="width: 30%; border-right: 1px solid #000">*your number</td>
+        <td style="width: 60%; border: 1px solid #000;"></td>
+        <td style="width: 10%; border: 1px solid #000;">TELP</td>
+        <td style="width: 30%; border: 1px solid #000;">*your number</td>
     </tr>
     <tr>
-        <td>
-            <textarea name="alasan_cuti" rows="4" style="width:50%; border: none;" required></textarea>
+        <td style="border: 1px solid #000;">
+            <textarea name="alasan_cuti" rows="4" style="width:100%; border: none;" required></textarea>
         </td>
-        <td colspan="4" style="text-align: right;" >
+        <td colspan="2" style="text-align: right; border: 1px solid #000;">
             Hormat saya,
             <br>
             <img src="{{ $record->employee->signature }}" alt="Employee Signature" class="signature-img" style="width: 3.15cm; height: 2.81cm; object-fit: contain;">
@@ -305,7 +310,7 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
         </td>
     </tr>
     <tr>
-        <th colspan="4" style="text-align: left;">VII. PERTIMBANGAN ATASAN LANGSUNG</th>
+        <th colspan="4" style="text-align: left;">VIII. KEPUTUSAN PEJABAT YANG BERWENANG MEMBERIKAN CUTI</th>
     </tr>
     <tr>
         <td>DISETUJUI</td>
