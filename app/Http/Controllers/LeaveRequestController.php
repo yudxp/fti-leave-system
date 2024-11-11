@@ -46,4 +46,21 @@ class LeaveRequestController extends Controller
         // return $pdf->download('leave-request.pdf');
         return $pdf->stream('leave-request.pdf');
     }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'attachment' => 'file|mimes:jpg,png,pdf|max:2048', // Example validation rules
+            // other validation rules...
+        ]);
+
+        if ($request->hasFile('attachment')) {
+            $filePath = $request->file('attachment')->store('attachments', 'public');
+            $validatedData['attachment'] = $filePath;
+        }
+
+        LeaveRequest::create($validatedData);
+
+        // Redirect or return response...
+    }
 }

@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Actions\Action;
+use Filament\Forms\Components\FileUpload;
 
 class LeaveRequestResource extends Resource
 {
@@ -37,6 +38,8 @@ class LeaveRequestResource extends Resource
                     ->required(),
                 Forms\Components\DatePicker::make('end_date')
                     ->required(),
+                Forms\Components\FileUpload::make('attachment')
+                    ->columnSpanFull(),
                 Forms\Components\Textarea::make('reason')
                     ->columnSpanFull(),
             ]);

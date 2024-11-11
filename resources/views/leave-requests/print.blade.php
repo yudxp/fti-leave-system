@@ -26,7 +26,6 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
     <meta http-equiv="Content-Type" content="charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leave Request Form</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { 
             font-family: Arial, sans-serif, DejaVu Sans Mono; 
@@ -73,7 +72,7 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
 
 <div class="kop-surat"> 
     <div class="logo-itera">
-        <img src="{{ asset('images/Logo_ITERA.png') }}"/>
+        <img src="{{ asset('images/Logo_ITERA.png') }}" alt="Logo ITERA"/>
     </div>
     <div class="kop-text">
         <h3>KEMENTRIAN PENDIDIKAN, KEBUDAYAAN, <br/> RISET, DAN TEKNOLOGI</h3>
@@ -94,12 +93,12 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
     </div>
 </div>
 
-<h3 class="header text-center">FORMULIR PERMINTAAN DAN PEMBERIAN CUTI</h3>
+<h3 class="header">FORMULIR PERMINTAAN DAN PEMBERIAN CUTI</h3>
 
 
 <!-- I. DATA PEGAWAI -->
-<table class="form-table table table-bordered">
-    <tbody class="table-bordered">
+<table class="form-table">
+    <tbody>
         <tr>
             <th colspan="4" style="text-align: left">I. DATA PEGAWAI</th>
         </tr>
@@ -220,37 +219,37 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
         <th colspan="5" style="text-align: left;">V. CATATAN CUTI</th>
     </tr>
     <tr>
-        <td colspan="3">1. CUTI TAHUNAN</td>
+        <td colspan="3" style="width: 30%;">1. CUTI TAHUNAN</td>
         <td>2. CUTI BESAR</td>
-        <td></td>
+        <td style="width: 10%;"></td>
     </tr>
     <tr>
-        <td>Tahun</td>
-        <td>Sisa</td>
-        <td>Keterangan</td>
+        <td style="width: 10%;">Tahun</td>
+        <td style="width: 10%;">Sisa</td>
+        <td style="width: 20%;">Keterangan</td>
         <td>CUTI SAKIT</td>
-        <td></td>
+        <td style="width: 10%;"></td>
     </tr>
     <tr>
         <td>N-2</td>
-        <td></td>
-        <td></td>
+        <td style="width: 10%;"></td>
+        <td style="width: 5%;"></td>
         <td>CUTI MELAHIRKAN</td>
-        <td></td>
+        <td style="width: 10%;"></td>
     </tr>
     <tr>
         <td>N-1</td>
-        <td></td>
-        <td></td>
+        <td style="width: 10%;"></td>
+        <td style="width: 5%;"></td>
         <td>CUTI KARENA ALASAN PENTING</td>
-        <td></td>
+        <td style="width: 10%;"></td>
     </tr>
     <tr>
         <td>N</td>
-        <td></td>
-        <td></td>
+        <td style="width: 10%;"></td>
+        <td style="width: 5%;"></td>
         <td>CUTI DI LUAR TANGGUNGAN NEGARA</td>
-        <td></td>
+        <td style="width: 10%;"></td>
     </tr>
 </table>
 
