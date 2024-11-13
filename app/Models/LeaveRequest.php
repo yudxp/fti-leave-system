@@ -34,7 +34,7 @@ class LeaveRequest extends Model
      * @var array<int, string>
      */
     // protected $fillable = ['employee_id', 'leave_type_id', 'start_date', 'end_date', 'reason', 'status', 'admin_remarks'];
-    protected $fillable = ['employee_id', 'leave_type_id', 'start_date', 'end_date', 'reason'];
+    protected $fillable = ['employee_id', 'leave_type_id', 'start_date', 'end_date', 'attachment', 'reason'];
 
 
 

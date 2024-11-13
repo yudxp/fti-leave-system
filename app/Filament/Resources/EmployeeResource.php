@@ -101,7 +101,7 @@ class EmployeeResource extends Resource
                         Column::make('nip')->heading('NIP'),
                         Column::make('user.email')->heading('Email'),
                     ])
-                ])->label('Export'),
+                ])->label('Export')->icon('heroicon-o-arrow-up-tray'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

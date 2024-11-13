@@ -28,7 +28,7 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
     <title>Leave Request Form</title>
     <style>
         body { 
-            font-family: Arial, sans-serif, DejaVu Sans Mono; 
+            font-family: "Times New Roman", DejaVu Sans Mono; 
             font-size: 9px;
         }
         .form-table {
@@ -48,16 +48,17 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
         }
         .kop-surat {
             display: flex;
-            font-family: "Times New Roman", Times, serif;
+            font-family: "Times New Roman";
             transform: scale(1.2);
-            flex-direction: row;
+            flex-direction: column;
             border-bottom: 2px solid #000;
             margin-left: 10%;
             margin-right: 10%;
             margin-bottom: 30px;
         }
+
         .logo-itera {
-            width: 30%;
+            position: absolute;
         }
         .kop-text {
             text-align: center;
@@ -69,32 +70,31 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
     </style>
 </head>
 <body>
-
+    
 <div class="kop-surat"> 
     <div class="logo-itera">
-        <img src="{{ asset('images/Logo_ITERA.png') }}" alt="Logo ITERA"/>
+        <img src="{{ public_path('images/logo_itera.png') }}" style="height: 2.2cm; width: 2.4cm; object-fit: contain;" />
     </div>
     <div class="kop-text">
-        <h3>KEMENTRIAN PENDIDIKAN, KEBUDAYAAN, <br/> RISET, DAN TEKNOLOGI</h3>
-        <h2>INSTITUT TEKNOLOGI SUMATERA</h2>
-        <p>Jalan Terusan Ryacudu Way Hui, Kecamatan Jati Agung, Lampung Selatan 35365</p>
-        <p>Telepon: (0721) 8030188</p>
-        <p>Email: <u>pusat@itera.ac.id</u>, Website : <u>http://itera.ac.id</u></p>
+        <p style="margin: 0; font-size: 15">KEMENTRIAN PENDIDIKAN, KEBUDAYAAN, <br/> RISET, DAN TEKNOLOGI</p>
+        <p style="margin: 0; font-weight: bold; font-size: 14">INSTITUT TEKNOLOGI SUMATERA</p>
+        <p style="margin: 0">Jalan Terusan Ryacudu Way Hui, Kecamatan Jati Agung, Lampung Selatan 35365</p>
+        <p style="margin: 0">Telepon: (0721) 8030188</p>
+        <p style="margin-top: 0">Email: <u>pusat@itera.ac.id</u>, Website : <u>http://itera.ac.id</u></p>
     </div>
 </div>
 
 <div class="tujuan-surat">
     <div style="float: right;">
-        <p> Lampung Selatan, <?php echo $formattedDate; ?></p>
-        <p> Kepada Yth. Kepala Biro Akademik, Perencanaan, dan Umum </p>
-        <p> Institut Teknologi Sumatera </p>
-        <p> di </p>
-        <p style="padding-left: 40px;"> Lampung Selatan </p>
+        <p style="margin: 0"> Lampung Selatan, <?php echo $formattedDate; ?></p>
+        <p style="margin: 0"> Kepada Yth. Kepala Biro Akademik, Perencanaan, dan Umum </p>
+        <p style="margin: 0"> Institut Teknologi Sumatera </p>
+        <p style="margin: 0"> di </p>
+        <p style="padding-left: 40px; margin: 0"> Lampung Selatan </p>
     </div>
 </div>
 
-<h3 class="header">FORMULIR PERMINTAAN DAN PEMBERIAN CUTI</h3>
-
+<h3 class="header" style="text-align: center;">FORMULIR PERMINTAAN DAN PEMBERIAN CUTI</h3>
 
 <!-- I. DATA PEGAWAI -->
 <table class="form-table">

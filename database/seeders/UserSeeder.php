@@ -61,5 +61,7 @@ class UserSeeder extends Seeder
         ]);
         $employee->assignRole('Employee');
         $employee->givePermissionTo($permissions);
+
+        
     }
 }

@@ -42,25 +42,11 @@ class LeaveRequestController extends Controller
     public function print(LeaveRequest $record)
     {
         $record->load(['employee', 'leaveType']);
-        $pdf = Pdf::loadView('leave-requests.print', compact('record'));
+        $pdf = Pdf::setOption(['isRemoteEnabled' => true]);
+        $pdf = Pdf::loadView('leave-requests.print', compact('record'))
+            ->setPaper('a4');
         // return $pdf->download('leave-request.pdf');
         return $pdf->stream('leave-request.pdf');
     }
 
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'attachment' => 'file|mimes:jpg,png,pdf|max:2048', // Example validation rules
-            // other validation rules...
-        ]);
-
-        if ($request->hasFile('attachment')) {
-            $filePath = $request->file('attachment')->store('attachments', 'public');
-            $validatedData['attachment'] = $filePath;
-        }
-
-        LeaveRequest::create($validatedData);
-
-        // Redirect or return response...
-    }
 }
