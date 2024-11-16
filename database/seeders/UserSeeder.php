@@ -63,5 +63,64 @@ class UserSeeder extends Seeder
         $employee->givePermissionTo($permissions);
 
         
+        /* Dekan Role */
+        $this->command->warn(PHP_EOL . 'Creating dekan role...');
+        $role = Role::create(['name' => 'Dekan']);
+
+        $includedPermission = ['LeaveRequest'];
+        $permissions = Permission::where(function ($query) use ($includedPermission) {
+            foreach ($includedPermission as $value) {
+                $query->orWhere('name', 'like', '%' . $value . '%');
+            }
+        })->pluck('name')->toArray();
+
+        $dekan = User::create([
+            'name' => 'Dekan',
+            'email' => 'dekan@database.com',
+            'password' => Hash::make('123456'),
+        ]);
+        $dekan->assignRole('Dekan');
+        $dekan->givePermissionTo($permissions);
+        $this->command->info('Dekan role has been created.');
+
+        /* Kepegawaian Role */
+        $this->command->warn(PHP_EOL . 'Creating kepegawaian role...');
+        $role = Role::create(['name' => 'Kepegawaian']);
+
+        $includedPermission = ['Employee'];
+        $permissions = Permission::where(function ($query) use ($includedPermission) {
+            foreach ($includedPermission as $value) {
+                $query->orWhere('name', 'like', '%' . $value . '%');
+            }
+        })->pluck('name')->toArray();
+        $kepegawaian = User::create([
+            'name' => 'Kepegawaian',
+            'email' => 'kepegawaian@database.com',
+            'password' => Hash::make('123456'),
+        ]);
+        $kepegawaian->assignRole('Kepegawaian');
+        $kepegawaian->givePermissionTo($permissions);   
+        $this->command->info('Kepegawaian role has been created.');
+
+
+        /* Ketua KK Role */
+        $this->command->warn(PHP_EOL . 'Creating ketua kkurangan role...');
+        $role = Role::create(['name' => 'Ketua KK']);       
+
+        $includedPermission = ['LeaveRequest'];
+        $permissions = Permission::where(function ($query) use ($includedPermission) {
+            foreach ($includedPermission as $value) {
+                $query->orWhere('name', 'like', '%' . $value . '%');
+            }
+        })->pluck('name')->toArray();
+
+        $ketua_kk = User::create([
+            'name' => 'Ketua KK',
+            'email' => 'ketua_kk@database.com',
+            'password' => Hash::make('123456'),
+        ]);
+        $ketua_kk->assignRole('Ketua KK');
+        $ketua_kk->givePermissionTo($permissions);
+        $this->command->info('Ketua KK role has been created.');
     }
 }
