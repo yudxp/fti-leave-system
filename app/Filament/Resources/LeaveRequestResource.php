@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LeaveRequestResource\Pages;
 use App\Filament\Resources\LeaveRequestResource\RelationManagers;
+use App\Models\Employee;
 use App\Models\LeaveRequest;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -31,6 +32,15 @@ class LeaveRequestResource extends Resource
                     ->required()
                     ->preload()
                     ->getOptionLabelFromRecordUsing(fn(Model $record) => "{$record->nip} - {$record->name}")
+                    ->live()
+                    ->afterStateUpdated(function (?string $state, ?string $old, $set) {
+                        $employee = Employee::find($state);
+                        if ($employee) {
+                            $set('department', $employee->department);
+                        } else {
+                            $set('department', null);
+                        }
+                    })
                     ->searchable(['nip', 'name']),
                 Forms\Components\Select::make('leave_type_id')
                     ->relationship('leaveType', 'name')
@@ -48,6 +58,8 @@ class LeaveRequestResource extends Resource
                     ->required(),
                 Forms\Components\FileUpload::make('attachment')
                     ->columnSpanFull(),
+                Forms\Components\TextInput::make('department')
+                    ->readOnly(),
             ]);
     }
 
