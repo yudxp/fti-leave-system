@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Actions\Action;
+use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\FileUpload;
 
 class LeaveRequestResource extends Resource
@@ -29,7 +30,8 @@ class LeaveRequestResource extends Resource
                     ->relationship('employee', 'name')
                     ->required()
                     ->preload()
-                    ->searchable(),
+                    ->getOptionLabelFromRecordUsing(fn(Model $record) => "{$record->nip} - {$record->name}")
+                    ->searchable(['nip', 'name']),
                 Forms\Components\Select::make('leave_type_id')
                     ->relationship('leaveType', 'name')
                     ->required()->preload()
@@ -84,13 +86,13 @@ class LeaveRequestResource extends Resource
                     ->url(fn(LeaveRequest $record) => route('leave-requests.approve', $record))
                     ->label('Approve')
                     ->icon('heroicon-o-check-circle')
-                    ->hidden(fn ($record) => $record->status == 'approved' || !auth()->user()->hasRole('Super Admin')),
+                    ->hidden(fn($record) => $record->status == 'approved' || !auth()->user()->hasRole('Super Admin')),
                 Action::make('reject')
                     ->url(fn(LeaveRequest $record) => route('leave-requests.reject', $record))
                     ->label('Reject')
                     ->icon('heroicon-o-x-circle')
-                    ->hidden(fn ($record) => $record->status == 'rejected' || !auth()->user()->hasRole('Super Admin')),
-                Action::make('print')->url(fn(LeaveRequest $record) => route('leave-requests.print', $record))->label('Print')->icon('heroicon-o-printer')->hidden(fn ($record) => $record->status == 'rejected'),
+                    ->hidden(fn($record) => $record->status == 'rejected' || !auth()->user()->hasRole('Super Admin')),
+                Action::make('print')->url(fn(LeaveRequest $record) => route('leave-requests.print', $record))->label('Print')->icon('heroicon-o-printer')->hidden(fn($record) => $record->status == 'rejected'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
