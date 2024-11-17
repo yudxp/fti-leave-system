@@ -90,6 +90,13 @@ class LeaveRequestResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(function () {
+                $query = LeaveRequest::query();
+                if (auth()->user()->hasRole('Employee')) {
+                    $query->where('employee_id', auth()->user()->employee->id);
+                }
+                return $query;
+            })
             ->columns([
                 Tables\Columns\TextColumn::make('employee.name')
                     ->searchable()
@@ -103,14 +110,15 @@ class LeaveRequestResource extends Resource
                 Tables\Columns\TextColumn::make('end_date')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('status')
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'pending' => 'gray',
-                        'reviewing' => 'warning',
-                        'approved' => 'success',
-                        'rejected' => 'danger',
-                    }),
+                // Tables\Columns\TextColumn::make('status')
+                //     ->badge()
+                //     ->color(fn (string $state): string => match ($state) {
+                //         'pending' => 'gray',
+                //         'reviewing' => 'warning',
+                //         'approved' => 'success',
+                //         'rejected' => 'danger',
+                //     }),
+                \EightyNine\Approvals\Tables\Columns\ApprovalStatusColumn::make("approvalStatus.status"),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -167,6 +175,7 @@ class LeaveRequestResource extends Resource
             'index' => Pages\ListLeaveRequests::route('/'),
             'create' => Pages\CreateLeaveRequest::route('/create'),
             'edit' => Pages\EditLeaveRequest::route('/{record}/edit'),
+            'view' => Pages\ViewLeaveRequest::route('/{record}'),
         ];
     }
 }
