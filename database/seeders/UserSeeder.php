@@ -39,11 +39,11 @@ class UserSeeder extends Seeder
         $superadmin->givePermissionTo(Permission::all());
 
 
-        /* Power User Role */
+        /* User Role */
         $this->command->warn(PHP_EOL . 'Creating standard role...');
         $role = Role::create(['name' => 'Employee']);
 
-        $includedPermission = ['Employee', 'Leave', 'LeaveRequest'];
+        $includedPermission = ['LeaveRequest'];
         $permissions = Permission::where(function ($query) use ($includedPermission) {
             foreach ($includedPermission as $value) {
                 $query->orWhere('name', 'like', '%' . $value . '%');
@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
         $role->givePermissionTo($permissions);
         $this->command->info('Employee role has been created.');
 
-        // Create a power user and assign the Power User role
+        // Create a user and assign the User role
         $employee  = User::create([
             'name' => 'Employee',
             'email' => 'employee@database.com',
@@ -87,7 +87,7 @@ class UserSeeder extends Seeder
         $this->command->warn(PHP_EOL . 'Creating kepegawaian role...');
         $role = Role::create(['name' => 'Kepegawaian']);
 
-        $includedPermission = ['Employee'];
+        $includedPermission = ['LeaveRequest'];
         $permissions = Permission::where(function ($query) use ($includedPermission) {
             foreach ($includedPermission as $value) {
                 $query->orWhere('name', 'like', '%' . $value . '%');
@@ -104,7 +104,7 @@ class UserSeeder extends Seeder
 
 
         /* Ketua KK Role */
-        $this->command->warn(PHP_EOL . 'Creating ketua kkurangan role...');
+        $this->command->warn(PHP_EOL . 'Creating ketua kk role...');
         $role = Role::create(['name' => 'Ketua KK']);       
 
         $includedPermission = ['LeaveRequest'];
@@ -122,5 +122,25 @@ class UserSeeder extends Seeder
         $ketua_kk->assignRole('Ketua KK');
         $ketua_kk->givePermissionTo($permissions);
         $this->command->info('Ketua KK role has been created.');
+
+        /* Wakil Dekan Role */
+        $this->command->warn(PHP_EOL . 'Creating wakil dekan role...');
+        $role = Role::create(['name' => 'Wakil Dekan']);       
+
+        $includedPermission = ['LeaveRequest'];
+        $permissions = Permission::where(function ($query) use ($includedPermission) {
+            foreach ($includedPermission as $value) {
+                $query->orWhere('name', 'like', '%' . $value . '%');
+            }
+        })->pluck('name')->toArray();
+
+        $wakil_dekan = User::create([
+            'name' => 'Wakil Dekan',
+            'email' => 'wakil_dekan@database.com',
+            'password' => Hash::make('123456'),
+        ]);
+        $wakil_dekan->assignRole('Wakil Dekan');
+        $wakil_dekan->givePermissionTo($permissions);
+        $this->command->info('Wakil Dekan role has been created.');
     }
 }

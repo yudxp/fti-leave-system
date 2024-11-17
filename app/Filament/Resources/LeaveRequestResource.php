@@ -27,21 +27,41 @@ class LeaveRequestResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('employee_id')
-                    ->relationship('employee', 'name')
-                    ->required()
-                    ->preload()
-                    ->getOptionLabelFromRecordUsing(fn(Model $record) => "{$record->nip} - {$record->name}")
-                    ->live()
-                    ->afterStateUpdated(function (?string $state, ?string $old, $set) {
-                        $employee = Employee::find($state);
-                        if ($employee) {
-                            $set('department', $employee->department);
-                        } else {
-                            $set('department', null);
-                        }
-                    })
-                    ->searchable(['nip', 'name']),
+                // Forms\Components\Select::make('employee_id')
+                //     ->relationship('employee', 'name')
+                //     ->required()
+                //     ->preload()
+                //     ->getOptionLabelFromRecordUsing(fn(Model $record) => "{$record->nip} - {$record->name}")
+                //     ->live()
+                //     ->afterStateUpdated(function (?string $state, ?string $old, $set) {
+                //         $employee = Employee::find($state);
+                //         if ($employee) {
+                //             $set('department', $employee->department);
+                //             $set('nip', $employee->nip);
+                //             $set('name', $employee->name);  
+                //             $set('position', $employee->position);
+                //             $set('working_period', $employee->start_working);
+                //         } else {
+                //             $set('department', null);
+                //         }
+                //     })
+                //     ->searchable(['nip', 'name']),
+                Forms\Components\TextInput::make('name')
+                    ->label('Nama')
+                    ->default((fn() => auth()->user()->name))
+                    ->readOnly(),
+                Forms\Components\TextInput::make('nip')
+                    ->label('NIP/NRK')
+                    ->readOnly(),
+                Forms\Components\TextInput::make('position')
+                    ->label('Jabatan')
+                    ->readOnly(),
+                Forms\Components\TextInput::make('working_period')
+                    ->label('Masa Kerja')
+                    ->readOnly(),
+                Forms\Components\TextInput::make('department')
+                    ->label('Unit Kerja')
+                    ->readOnly(),
                 Forms\Components\Select::make('leave_type_id')
                     ->relationship('leaveType', 'name')
                     ->required()->preload()
@@ -58,8 +78,6 @@ class LeaveRequestResource extends Resource
                     ->required(),
                 Forms\Components\FileUpload::make('attachment')
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('department')
-                    ->readOnly(),
             ]);
     }
 
@@ -67,11 +85,11 @@ class LeaveRequestResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('employee_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('employee.name')
+                    ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('leave_type_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('leaveType.name')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('start_date')
                     ->date()
@@ -79,7 +97,14 @@ class LeaveRequestResource extends Resource
                 Tables\Columns\TextColumn::make('end_date')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('status'),
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'pending' => 'gray',
+                        'reviewing' => 'warning',
+                        'approved' => 'success',
+                        'rejected' => 'danger',
+                    }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -98,12 +123,13 @@ class LeaveRequestResource extends Resource
                     ->url(fn(LeaveRequest $record) => route('leave-requests.approve', $record))
                     ->label('Approve')
                     ->icon('heroicon-o-check-circle')
-                    ->hidden(fn($record) => $record->status == 'approved' || !auth()->user()->hasRole('Super Admin')),
+                    ->hidden(fn($record) => !auth()->user()->hasRole('Dekan', 'Kepegawaian', 'Wakil Dekan', 'Ketua KK')),
+                    // ->hidden(fn($record) => $record->status == 'approved' || !auth()->user()->hasRole('Dekan', 'Kepegawaian', 'Wakil Dekan', 'Ketua KK')),
                 Action::make('reject')
                     ->url(fn(LeaveRequest $record) => route('leave-requests.reject', $record))
                     ->label('Reject')
                     ->icon('heroicon-o-x-circle')
-                    ->hidden(fn($record) => $record->status == 'rejected' || !auth()->user()->hasRole('Super Admin')),
+                    ->hidden(fn($record) => $record->status == 'rejected' || !auth()->user()->hasRole('Dekan', 'Kepegawaian', 'Wakil Dekan', 'Ketua KK')),
                 Action::make('print')->url(fn(LeaveRequest $record) => route('leave-requests.print', $record))->label('Print')->icon('heroicon-o-printer')->hidden(fn($record) => $record->status == 'rejected'),
             ])
             ->bulkActions([

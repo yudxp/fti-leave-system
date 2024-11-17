@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('attachment')->nullable();
             $table->text('alamat_cuti')->nullable();
             $table->text('telepon');
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('status', ['pending', 'reviewing', 'approved', 'rejected'])->default('pending');
             $table->text('admin_remarks')->nullable();
             $table->timestamps();
         });

@@ -39,6 +39,7 @@ class LeaveRequestController extends Controller
         return redirect()->back()->with('success', 'Leave request rejected successfully');
     }
 
+
     public function print(LeaveRequest $record)
     {
         $record->load(['employee', 'leaveType']);

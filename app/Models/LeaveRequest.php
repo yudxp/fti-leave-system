@@ -34,7 +34,7 @@ class LeaveRequest extends Model
      * @var array<int, string>
      */
     // protected $fillable = ['employee_id', 'leave_type_id', 'start_date', 'end_date', 'reason', 'status', 'admin_remarks'];
-    protected $fillable = ['employee_id', 'leave_type_id', 'start_date', 'end_date', 'attachment', 'reason'];
+    protected $fillable = ['employee_id', 'leave_type_id', 'start_date', 'end_date', 'attachment', 'reason', 'telepon', 'alamat_cuti'];
 
 
 
@@ -44,6 +44,11 @@ class LeaveRequest extends Model
     public function employee()
     {
         return $this->belongsTo(\App\Models\Employee::class, 'employee_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->employee->user();
     }
     
     /**
