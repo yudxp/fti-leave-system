@@ -51,23 +51,23 @@ class LeaveRequestResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->label('Nama')
                     ->default((fn() => auth()->user()->employee->name))
-                    ->readOnly(),
+                    ->disabled(),
                 Forms\Components\TextInput::make('nip')
                     ->label('NIP/NRK')
                     ->default((fn() => auth()->user()->employee->nip))
-                    ->readOnly(),
+                    ->disabled(),
                 Forms\Components\TextInput::make('position')
                     ->label('Jabatan')
                     ->default((fn() => auth()->user()->employee->position))
-                    ->readOnly(),
+                    ->disabled(),
                 Forms\Components\TextInput::make('working_period')
                     ->label('Masa Kerja')
                     ->default((fn() => auth()->user()->employee->start_working))
-                    ->readOnly(),
+                    ->disabled(),
                 Forms\Components\TextInput::make('department')
                     ->label('Unit Kerja')
                     ->default((fn() => auth()->user()->employee->department))
-                    ->readOnly(),
+                    ->disabled(),
                 Forms\Components\Select::make('leave_type_id')
                     ->relationship('leaveType', 'name')
                     ->required()->preload()
@@ -110,6 +110,8 @@ class LeaveRequestResource extends Resource
                 Tables\Columns\TextColumn::make('end_date')
                     ->date()
                     ->sortable(),
+                // Tables\Columns\TextColumn::make("status"),
+                \EightyNine\Approvals\Tables\Columns\ApprovalStatusColumn::make("approvalStatus.status"),
                 // Tables\Columns\TextColumn::make('status')
                 //     ->badge()
                 //     ->color(fn (string $state): string => match ($state) {
@@ -118,7 +120,6 @@ class LeaveRequestResource extends Resource
                 //         'approved' => 'success',
                 //         'rejected' => 'danger',
                 //     }),
-                \EightyNine\Approvals\Tables\Columns\ApprovalStatusColumn::make("approvalStatus.status"),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -128,16 +129,17 @@ class LeaveRequestResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+
             ->filters([
                 //
             ])
             ->actions([
                 ...\EightyNine\Approvals\Tables\Actions\ApprovalActions::make(
-                    Action::make("Done"),
-                    [
-                        Tables\Actions\EditAction::make(),
-                        Tables\Actions\ViewAction::make()
-                    ]
+                Action::make("Done"),
+                [
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\ViewAction::make()
+                ]
                 ),
                 // Action::make('approve')
                 //     ->url(fn(LeaveRequest $record) => route('leave-requests.approve', $record))
@@ -153,7 +155,7 @@ class LeaveRequestResource extends Resource
                     ->url(fn(LeaveRequest $record) => route('leave-requests.print', $record))
                     ->label('Print')
                     ->icon('heroicon-o-printer')
-                    ->hidden(fn($record) => $record->status == 'rejected')
+                    // ->hidden(fn($record) => $record->status == 'rejected')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
