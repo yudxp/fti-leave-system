@@ -65,7 +65,8 @@ class AdminPanelProvider extends PanelProvider
                 \TomatoPHP\FilamentUsers\FilamentUsersPlugin::make(),
                 FilamentEditProfilePlugin::make()->shouldRegisterNavigation(false),
                 FilamentBackgroundsPlugin::make(),
-                \Hasnayeen\Themes\ThemesPlugin::make()
+                \Hasnayeen\Themes\ThemesPlugin::make(),
+                \EightyNine\Approvals\ApprovalPlugin::make()
             ])
             ->userMenuItems([
                 'profile' => MenuItem::make()

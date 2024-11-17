@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use EightyNine\Approvals\Models\ApprovableModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class LeaveRequest
@@ -23,8 +25,10 @@ use Illuminate\Database\Eloquent\Model;
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class LeaveRequest extends Model
+class LeaveRequest extends ApprovableModel
 {
+
+    use HasFactory;
     
     protected $perPage = 20;
 

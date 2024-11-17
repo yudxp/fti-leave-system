@@ -46,21 +46,27 @@ class LeaveRequestResource extends Resource
                 //         }
                 //     })
                 //     ->searchable(['nip', 'name']),
+                Forms\Components\Hidden::make('employee_id')
+                    ->default((fn() => auth()->user()->employee->id)),
                 Forms\Components\TextInput::make('name')
                     ->label('Nama')
-                    ->default((fn() => auth()->user()->name))
+                    ->default((fn() => auth()->user()->employee->name))
                     ->readOnly(),
                 Forms\Components\TextInput::make('nip')
                     ->label('NIP/NRK')
+                    ->default((fn() => auth()->user()->employee->nip))
                     ->readOnly(),
                 Forms\Components\TextInput::make('position')
                     ->label('Jabatan')
+                    ->default((fn() => auth()->user()->employee->position))
                     ->readOnly(),
                 Forms\Components\TextInput::make('working_period')
                     ->label('Masa Kerja')
+                    ->default((fn() => auth()->user()->employee->start_working))
                     ->readOnly(),
                 Forms\Components\TextInput::make('department')
                     ->label('Unit Kerja')
+                    ->default((fn() => auth()->user()->employee->department))
                     ->readOnly(),
                 Forms\Components\Select::make('leave_type_id')
                     ->relationship('leaveType', 'name')
@@ -118,19 +124,28 @@ class LeaveRequestResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                ...\EightyNine\Approvals\Tables\Actions\ApprovalActions::make(
+                    Action::make("Done"),
+                    [
+                        Tables\Actions\EditAction::make(),
+                        Tables\Actions\ViewAction::make()
+                    ]
+                ),
                 Action::make('approve')
                     ->url(fn(LeaveRequest $record) => route('leave-requests.approve', $record))
                     ->label('Approve')
                     ->icon('heroicon-o-check-circle')
                     ->hidden(fn($record) => !auth()->user()->hasRole('Dekan', 'Kepegawaian', 'Wakil Dekan', 'Ketua KK')),
-                    // ->hidden(fn($record) => $record->status == 'approved' || !auth()->user()->hasRole('Dekan', 'Kepegawaian', 'Wakil Dekan', 'Ketua KK')),
                 Action::make('reject')
                     ->url(fn(LeaveRequest $record) => route('leave-requests.reject', $record))
                     ->label('Reject')
                     ->icon('heroicon-o-x-circle')
                     ->hidden(fn($record) => $record->status == 'rejected' || !auth()->user()->hasRole('Dekan', 'Kepegawaian', 'Wakil Dekan', 'Ketua KK')),
-                Action::make('print')->url(fn(LeaveRequest $record) => route('leave-requests.print', $record))->label('Print')->icon('heroicon-o-printer')->hidden(fn($record) => $record->status == 'rejected'),
+                Action::make('print')
+                    ->url(fn(LeaveRequest $record) => route('leave-requests.print', $record))
+                    ->label('Print')
+                    ->icon('heroicon-o-printer')
+                    ->hidden(fn($record) => $record->status == 'rejected')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
