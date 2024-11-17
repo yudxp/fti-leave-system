@@ -131,16 +131,16 @@ class LeaveRequestResource extends Resource
                         Tables\Actions\ViewAction::make()
                     ]
                 ),
-                Action::make('approve')
-                    ->url(fn(LeaveRequest $record) => route('leave-requests.approve', $record))
-                    ->label('Approve')
-                    ->icon('heroicon-o-check-circle')
-                    ->hidden(fn($record) => !auth()->user()->hasRole('Dekan', 'Kepegawaian', 'Wakil Dekan', 'Ketua KK')),
-                Action::make('reject')
-                    ->url(fn(LeaveRequest $record) => route('leave-requests.reject', $record))
-                    ->label('Reject')
-                    ->icon('heroicon-o-x-circle')
-                    ->hidden(fn($record) => $record->status == 'rejected' || !auth()->user()->hasRole('Dekan', 'Kepegawaian', 'Wakil Dekan', 'Ketua KK')),
+                // Action::make('approve')
+                //     ->url(fn(LeaveRequest $record) => route('leave-requests.approve', $record))
+                //     ->label('Approve')
+                //     ->icon('heroicon-o-check-circle')
+                //     ->hidden(fn($record) => !auth()->user()->hasRole('Dekan', 'Kepegawaian', 'Wakil Dekan', 'Ketua KK')),
+                // Action::make('reject')
+                //     ->url(fn(LeaveRequest $record) => route('leave-requests.reject', $record))
+                //     ->label('Reject')
+                //     ->icon('heroicon-o-x-circle')
+                //     ->hidden(fn($record) => $record->status == 'rejected' || !auth()->user()->hasRole('Dekan', 'Kepegawaian', 'Wakil Dekan', 'Ketua KK')),
                 Action::make('print')
                     ->url(fn(LeaveRequest $record) => route('leave-requests.print', $record))
                     ->label('Print')
