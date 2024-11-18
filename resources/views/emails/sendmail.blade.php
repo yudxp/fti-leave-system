@@ -22,14 +22,14 @@
 </head>
 <body>
     <h1>Cuti.ITERA</h1>
-    <p>Dear Yudha,</p>
+    <p>Dear {{ $data['nama'] }},</p>
 
     <p>This is an automated email to notify you that the following leave form request is waiting for your approval:</p>
     
-    <p><span class="highlight">Nama:</span> "{nama yg cuti}"</p>
-    <p><span class="highlight">Prodi:</span> "{prodi}"</p>
-    <p><span class="highlight">Jenis Cuti:</span> "{tipe cuti} - {hari}"</p>
-    <p><span class="highlight">Alasan:</span> "{alasan}"</p>
+    <p><span class="highlight">Nama:</span> "{{ $data['nama'] }}"</p>
+    <p><span class="highlight">Prodi:</span> "{{ $data['prodi'] }}"</p>
+    <p><span class="highlight">Jenis Cuti:</span> "{{ $data['tipe_cuti'] }} - {{ $data['hari'] }}"</p>
+    <p><span class="highlight">Alasan:</span> "{{ $data['alasan'] }}"</p>
 
     <p>Please click the link below to respond:</p>
     <p><a href="http://fti-leave-system.test/login" style="color: #007BFF; text-decoration: none;">Respond to Leave Request</a></p>
