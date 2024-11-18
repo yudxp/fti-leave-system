@@ -16,9 +16,9 @@ class SendEmail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($data)
     {
-        $this->data = $data;
+        $this->name = $data;
     }
 
     /**
@@ -33,7 +33,7 @@ class SendEmail extends Mailable
 
     public function build()
     {
-        return $this->subject('Pengajuan Cuti')->view('emails.send-email');
+        return $this->subject('Pengajuan Cuti')->view('emails.sendmail');
     }
 
     /**
@@ -42,7 +42,7 @@ class SendEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.sendmail',
         );
     }
 

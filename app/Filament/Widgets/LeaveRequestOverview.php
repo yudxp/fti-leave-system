@@ -12,10 +12,16 @@ class LeaveRequestOverview extends BaseWidget
     protected function getStats(): array
     {
         $stats = [
-            Stat::make('Jumlah Leave Request', LeaveRequest::count()),
-            Stat::make('Jumlah Leave Request Disetujui', LeaveRequest::where('status', 'disetujui')->count()),
-            Stat::make('Jumlah Leave Request Ditolak', LeaveRequest::where('status', 'ditolak')->count()),
-            Stat::make('Jumlah Leave Request Pending', LeaveRequest::where('status', 'pending')->count()),
+            Stat::make('Jumlah Leave Request', LeaveRequest::where('employee_id', auth()->user()->employee->id)->count()),
+            Stat::make('Jumlah Leave Request Disetujui', LeaveRequest::where('employee_id', auth()->user()->employee->id)->whereHas('approvalStatus', function($query) {
+                $query->where('status', 'approved');
+            })->count()),
+            Stat::make('Jumlah Leave Request Ditolak', LeaveRequest::where('employee_id', auth()->user()->employee->id)->whereHas('approvalStatus', function($query) {
+                $query->where('status', 'rejected'); 
+            })->count()),
+            Stat::make('Jumlah Leave Request Diproses', LeaveRequest::where('employee_id', auth()->user()->employee->id)->whereHas('approvalStatus', function($query) {
+                $query->where('status', 'in_process');
+            })->count()),
         ];
 
         if (auth()->user()->hasRole(['Super Admin', 'Kepegawaian'])) {

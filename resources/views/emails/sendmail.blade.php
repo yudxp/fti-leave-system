@@ -1,11 +1,43 @@
+<!-- resources/views/emails/sendmail.blade.php -->
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Pengajuan Cuti</title>
-    </head>
+<head>
+    <title>Pengajuan Cuti</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 {
+            color: #007BFF;
+        }
+        p {
+            margin: 8px 0;
+        }
+        .highlight {
+            font-weight: bold;
+        }
+    </style>
+</head>
 <body>
-    <h1>Pengajuan Cuti</h1>
-    <p>Nama: {{ $data['name'] }}</p>
-    <p>Terima kasih</p>
+    <h1>Cuti.ITERA</h1>
+    <p>Dear Yudha,</p>
+
+    <p>This is an automated email to notify you that the following leave form request is waiting for your approval:</p>
+    
+    <p><span class="highlight">Nama:</span> "{nama yg cuti}"</p>
+    <p><span class="highlight">Prodi:</span> "{prodi}"</p>
+    <p><span class="highlight">Jenis Cuti:</span> "{tipe cuti} - {hari}"</p>
+    <p><span class="highlight">Alasan:</span> "{alasan}"</p>
+
+    <p>Please click the link below to respond:</p>
+    <p><a href="http://fti-leave-system.test/login" style="color: #007BFF; text-decoration: none;">Respond to Leave Request</a></p>
+
+    <p>If you encounter any issues, please contact us at:</p>
+    <ul>
+        <li>email1@example.com</li>
+        <li>email2@example.com</li>
+    </ul>
 </body>
 </html>

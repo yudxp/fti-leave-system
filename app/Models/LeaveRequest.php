@@ -25,9 +25,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
+
+ 
 class LeaveRequest extends ApprovableModel
 {
-
+    public bool $autoSubmit = true;
     use HasFactory;
     
     protected $perPage = 20;
