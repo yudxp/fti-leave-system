@@ -32,7 +32,7 @@
     <p><span class="highlight">Alasan:</span> "{{ $data['alasan'] }}"</p>
 
     <p>Please click the link below to respond:</p>
-    <p><a href="http://fti-leave-system.test/login" style="color: #007BFF; text-decoration: none;">Respond to Leave Request</a></p>
+    <p><a href="http://192.168.31.204:8000" style="color: #007BFF; text-decoration: none;">Respond to Leave Request</a></p>
 
     <p>If you encounter any issues, please contact us at:</p>
     <ul>

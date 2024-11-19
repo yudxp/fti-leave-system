@@ -95,7 +95,7 @@ class UserSeeder extends Seeder
         })->pluck('name')->toArray();
         $kepegawaian = User::create([
             'name' => 'Kepegawaian',
-            'email' => 'mardhiyatna@ia.ac.id',
+            'email' => 'achmad.alfajrin@rh.itera.ac.id',
             'password' => Hash::make('123456'),
         ]);
         $kepegawaian->assignRole('Kepegawaian');
@@ -136,7 +136,7 @@ class UserSeeder extends Seeder
 
         $wakil_dekan = User::create([
             'name' => 'Wakil Dekan',
-            'email' => 'novaya.118190007@student.itera.ac.id',
+            'email' => 'rhahmi.pesma@ia.itera.ac.id',
             'password' => Hash::make('123456'),
         ]);
         $wakil_dekan->assignRole('Wakil Dekan');

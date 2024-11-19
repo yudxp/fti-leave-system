@@ -76,7 +76,7 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
         <img src="{{ public_path('images/logo_itera.png') }}" style="height: 2.2cm; width: 2.4cm; object-fit: contain;" />
     </div>
     <div class="kop-text">
-        <p style="margin: 0; font-size: 15">KEMENTRIAN PENDIDIKAN, KEBUDAYAAN, <br/> RISET, DAN TEKNOLOGI</p>
+        <p style="margin: 0; font-size: 15">KEMENTRIAN PENDIDIKAN TINGGI, SAINS, <br/> DAN TEKNOLOGI</p>
         <p style="margin: 0; font-weight: bold; font-size: 14">INSTITUT TEKNOLOGI SUMATERA</p>
         <p style="margin: 0">Jalan Terusan Ryacudu Way Hui, Kecamatan Jati Agung, Lampung Selatan 35365</p>
         <p style="margin: 0">Telepon: (0721) 8030188</p>
@@ -277,7 +277,7 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
     </tr>
 </table>
 
-<!-- SIGNATURE -->
+<!-- SIGNATURE ATASAN LANGSUNG -->
 <table class="form-table">
     <tr>
         <th colspan="4" style="text-align: left;">VII. PERTIMBANGAN ATASAN LANGSUNG</th>

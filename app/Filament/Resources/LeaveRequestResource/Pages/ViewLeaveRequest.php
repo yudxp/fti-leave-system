@@ -21,6 +21,7 @@ class ViewLeaveRequest extends ViewRecord
      */
     protected function getOnCompletionAction(): Action
     {
+        // Mail::to('yudha.arzi@ia.itera.ac.id')->send(new SendEmail($data)); // send mail to user when finish
         return Action::make("Done")
             ->color("success");
     }

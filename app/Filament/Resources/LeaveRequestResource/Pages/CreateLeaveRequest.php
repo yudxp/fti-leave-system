@@ -21,10 +21,11 @@ class CreateLeaveRequest extends CreateRecord
             'tipe_cuti' => $this->record->leaveType->name,
             'alasan' => $this->record->reason
         ];
-        $approvers = ??
+
+        $approvers = \App\Models\User::role([3,4,5,6])->get();
         foreach ($approvers as $approver) {
-            if ($approver->user && $approver->user->email) {
-                Mail::to($approver->user->email)->send(new SendEmail($data));
+            if ($approver->email) {
+                Mail::to($approver->email)->send(new SendEmail($data));
             }
         }
         // Mail::to('yudha.arzi@ia.itera.ac.id')->send(new SendEmail($data));
