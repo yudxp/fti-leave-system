@@ -50,7 +50,7 @@ class LeaveRequestResource extends Resource
                     ->default((fn() => auth()->user()->employee->id)),
                 Forms\Components\TextInput::make('name')
                     ->label('Nama')
-                    ->default((fn() => auth()->user()->employee->name))
+                    ->default((fn() => auth()->user()->name))
                     ->disabled(),
                 Forms\Components\TextInput::make('nip')
                     ->label('NIP/NRK')

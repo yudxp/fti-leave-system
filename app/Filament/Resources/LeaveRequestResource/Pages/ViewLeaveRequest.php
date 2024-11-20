@@ -23,6 +23,7 @@ class ViewLeaveRequest extends ViewRecord
     {
         // Mail::to('yudha.arzi@ia.itera.ac.id')->send(new SendEmail($data)); // send mail to user when finish
         return Action::make("Done")
-            ->color("success");
+            ->color("success")
+            ->url('/'); // Redirect to home page
     }
 }

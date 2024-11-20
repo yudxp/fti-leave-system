@@ -15,7 +15,7 @@ class CreateLeaveRequest extends CreateRecord
     {
         // Send email notification
         $data = [
-            'nama' => auth()->user()->employee->name,
+            'nama' => auth()->user()->name,
             'prodi' => auth()->user()->employee->department,
             'hari' => now()->parse($this->record->start_date)->diffInDays($this->record->end_date) + 1,
             'tipe_cuti' => $this->record->leaveType->name,
