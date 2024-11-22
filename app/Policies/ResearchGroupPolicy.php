@@ -13,7 +13,7 @@ class ResearchGroupPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->checkPermissionTo('{{ viewAnyPermission }}');
+        return $user->checkPermissionTo('view-any ResearchGroup');
     }
 
     /**
@@ -21,7 +21,7 @@ class ResearchGroupPolicy
      */
     public function view(User $user, ResearchGroup $researchgroup): bool
     {
-        return $user->checkPermissionTo('{{ viewPermission }}');
+        return $user->checkPermissionTo('view ResearchGroup');
     }
 
     /**
@@ -29,7 +29,7 @@ class ResearchGroupPolicy
      */
     public function create(User $user): bool
     {
-        return $user->checkPermissionTo('{{ createPermission }}');
+        return $user->checkPermissionTo('create ResearchGroup');
     }
 
     /**
@@ -37,7 +37,7 @@ class ResearchGroupPolicy
      */
     public function update(User $user, ResearchGroup $researchgroup): bool
     {
-        return $user->checkPermissionTo('{{ updatePermission }}');
+        return $user->checkPermissionTo('update ResearchGroup');
     }
 
     /**
@@ -45,7 +45,7 @@ class ResearchGroupPolicy
      */
     public function delete(User $user, ResearchGroup $researchgroup): bool
     {
-        return $user->checkPermissionTo('{{ deletePermission }}');
+        return $user->checkPermissionTo('delete ResearchGroup');
     }
 
     /**
@@ -53,7 +53,7 @@ class ResearchGroupPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->checkPermissionTo('{{ deleteAnyPermission }}');
+        return $user->checkPermissionTo('delete-any ResearchGroup');
     }
 
     /**
@@ -61,7 +61,7 @@ class ResearchGroupPolicy
      */
     public function restore(User $user, ResearchGroup $researchgroup): bool
     {
-        return $user->checkPermissionTo('{{ restorePermission }}');
+        return $user->checkPermissionTo('restore ResearchGroup');
     }
 
     /**
@@ -69,7 +69,7 @@ class ResearchGroupPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->checkPermissionTo('{{ restoreAnyPermission }}');
+        return $user->checkPermissionTo('restore-any ResearchGroup');
     }
 
     /**
@@ -77,7 +77,7 @@ class ResearchGroupPolicy
      */
     public function replicate(User $user, ResearchGroup $researchgroup): bool
     {
-        return $user->checkPermissionTo('{{ replicatePermission }}');
+        return $user->checkPermissionTo('replicate ResearchGroup');
     }
 
     /**
@@ -85,7 +85,7 @@ class ResearchGroupPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->checkPermissionTo('{{ reorderPermission }}');
+        return $user->checkPermissionTo('reorder ResearchGroup');
     }
 
     /**
@@ -93,7 +93,7 @@ class ResearchGroupPolicy
      */
     public function forceDelete(User $user, ResearchGroup $researchgroup): bool
     {
-        return $user->checkPermissionTo('{{ forceDeletePermission }}');
+        return $user->checkPermissionTo('force-delete ResearchGroup');
     }
 
     /**
@@ -101,6 +101,6 @@ class ResearchGroupPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->checkPermissionTo('{{ forceDeleteAnyPermission }}');
+        return $user->checkPermissionTo('force-delete-any ResearchGroup');
     }
 }

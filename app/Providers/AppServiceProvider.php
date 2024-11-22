@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Gate;
 use App\Models\ApprovalFlow;
+use RingleSoft\LaravelProcessApproval\Models\ProcessApprovalFlow;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
             return $user->isSuperAdmin() ? true: null;
         });
         Gate::policy(ApprovalFlow::class, ApprovalFlowPolicy::class);
+        Gate::policy(ProcessApprovalFlow::class, ApprovalFlowPolicy::class); 
     }
 }
