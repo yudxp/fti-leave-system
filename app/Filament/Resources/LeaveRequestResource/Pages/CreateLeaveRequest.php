@@ -25,7 +25,13 @@ class CreateLeaveRequest extends CreateRecord
         $approvers = \App\Models\User::role([3,4,5,6])->get();
         foreach ($approvers as $approver) {
             if ($approver->email) {
-                Mail::to($approver->email)->send(new SendEmail($data));
+                try {
+                    Mail::to($approver->email)->send(new SendEmail($data));
+                } catch (\Exception $e) {
+                    // Optionally log the error
+                    \Log::warning("Failed to send email to {$approver->email}: {$e->getMessage()}");
+                    continue;
+                }
             }
         }
         // Mail::to('yudha.arzi@ia.itera.ac.id')->send(new SendEmail($data));

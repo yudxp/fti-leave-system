@@ -98,7 +98,7 @@ class LeaveRequestResource extends Resource
                 return $query;
             })
             ->columns([
-                Tables\Columns\TextColumn::make('employee.name')
+                Tables\Columns\TextColumn::make('employee.user.name')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('leaveType.name')

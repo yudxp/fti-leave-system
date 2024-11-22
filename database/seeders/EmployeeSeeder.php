@@ -19,7 +19,6 @@ class EmployeeSeeder extends Seeder
         foreach ($users as $user) {
             Employee::create([
                 'user_id' => $user->id,
-                'name' => $user->name,
                 'position' => fake()->jobTitle(),
                 'department' => fake()->randomElement(['IT', 'HR', 'Finance', 'Marketing', 'Operations']),
                 'nip' => fake()->unique()->numerify('########'),
