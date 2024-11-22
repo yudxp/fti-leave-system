@@ -63,7 +63,9 @@ class AdminPanelProvider extends PanelProvider
             ->plugins([
                 FilamentSpatieRolesPermissionsPlugin::make(),
                 \TomatoPHP\FilamentUsers\FilamentUsersPlugin::make(),
-                FilamentEditProfilePlugin::make()->shouldRegisterNavigation(false),
+                FilamentEditProfilePlugin::make()->shouldRegisterNavigation(false)->customProfileComponents([
+                    \App\Livewire\CustomProfileComponent::class,
+                ]),
                 FilamentBackgroundsPlugin::make(),
                 \Hasnayeen\Themes\ThemesPlugin::make(),
                 \EightyNine\Approvals\ApprovalPlugin::make()
