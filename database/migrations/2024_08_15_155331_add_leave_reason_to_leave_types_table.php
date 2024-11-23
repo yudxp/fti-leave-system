@@ -15,6 +15,8 @@ class AddLeaveReasonToLeaveTypesTable extends Migration
     {
         Schema::table('leave_types', function (Blueprint $table) {
             $table->string('leave_reason')->nullable(); // Add the leave_reason column
+            $table->enum('applicable_for', ['PNS', 'P3K', 'Both'])->default('Both'); // Jenis pegawai yang berlaku
+            $table->integer('default_days')->default(12); // Default jumlah hari cuti per tahun
         });
     }
 
