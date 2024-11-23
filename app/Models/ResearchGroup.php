@@ -25,7 +25,7 @@ class ResearchGroup extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['research_group'];
+    protected $fillable = ['faculty', 'research_group'];
 
 
 }

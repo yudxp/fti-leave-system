@@ -23,6 +23,9 @@ class ResearchGroupResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\TextInput::make('faculty')
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('research_group')
                     ->required()
                     ->maxLength(255),
@@ -42,6 +45,8 @@ class ResearchGroupResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('research_group')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('faculty')
                     ->searchable(),
             ])
             ->filters([

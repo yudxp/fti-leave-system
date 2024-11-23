@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('research_groups', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('faculty'); // Fakultas
             $table->string('research_group');
+            $table->timestamps();
         });
     }
 
