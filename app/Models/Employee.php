@@ -39,4 +39,9 @@ class Employee extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function statusPegawai()
+    {
+        return $this->hasOne(StatusPegawai::class);
+    }
 }

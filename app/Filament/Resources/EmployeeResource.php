@@ -59,7 +59,11 @@ class EmployeeResource extends Resource
                 //     ->directory('uploads/signatures')
                 //     ->acceptedFileTypes(['image/png']),
                 // ->required(),
-                SignaturePad::make('signature')
+                SignaturePad::make('signature'),
+                Select::make('status_pegawai')
+                    ->relationship(name: 'statusPegawai', titleAttribute: 'status_pegawai')
+                    ->label('Status Pegawai')
+                    ->required(),
             ]);
     }
 
@@ -67,7 +71,7 @@ class EmployeeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('user.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('position')
                     ->searchable(),
@@ -79,6 +83,8 @@ class EmployeeResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('user.email')->label('Email')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('statusPegawai.status_pegawai')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
