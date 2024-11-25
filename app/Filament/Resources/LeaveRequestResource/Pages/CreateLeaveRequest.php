@@ -26,7 +26,7 @@ class CreateLeaveRequest extends CreateRecord
         foreach ($approvers as $approver) {
             if ($approver->email) {
                 try {
-                    Mail::to($approver->email)->send(new SendEmail($data));
+                    Mail::to($approver->email)->queue(new SendEmail($data));
                 } catch (\Exception $e) {
                     // Optionally log the error
                     \Log::warning("Failed to send email to {$approver->email}: {$e->getMessage()}");

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use EightyNine\Approvals\Models\ApprovableModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\LeaveRequestStatusChanged;
 
 /**
  * Class LeaveRequest
@@ -65,4 +67,13 @@ class LeaveRequest extends ApprovableModel
         return $this->belongsTo(\App\Models\LeaveType::class, 'leave_type_id', 'id');
     }
     
+    protected static function booted()
+    {
+        static::updated(function ($leaveRequest) {
+            if ($leaveRequest->isDirty('status')) {
+                $user = $leaveRequest->employee->user;
+                Mail::to($user->email)->send(new LeaveRequestStatusChanged($leaveRequest));
+            }
+        });
+    }
 }
