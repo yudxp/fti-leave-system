@@ -55,7 +55,7 @@ class UserSeeder extends Seeder
 
         // Create a user and assign the User role
         $employee  = User::create([
-            'name' => 'Employee',
+            'name' => 'Yudha Hamdi',
             'email' => 'yudhahamdi@gmail.com',
             'password' => Hash::make('123456'),
         ]);
@@ -76,7 +76,8 @@ class UserSeeder extends Seeder
 
         $dekan = User::create([
             'name' => 'Dekan',
-            'email' => 'nazuwatussyadiyah@ia.itera.ac.id',
+            // 'email' => 'nazuwatussyadiyah@ia.itera.ac.id',
+            'email' => 'dummy1@ia.itera.ac.id',
             'password' => Hash::make('123456'),
         ]);
         $dekan->assignRole('Dekan');
@@ -95,7 +96,8 @@ class UserSeeder extends Seeder
         })->pluck('name')->toArray();
         $kepegawaian = User::create([
             'name' => 'Kepegawaian',
-            'email' => 'achmad.alfajrin@rh.itera.ac.id',
+            // 'email' => 'achmad.alfajrin@rh.itera.ac.id',
+            'email' => 'dummy2@rh.itera.ac.id',
             'password' => Hash::make('123456'),
         ]);
         $kepegawaian->assignRole('Kepegawaian');
@@ -116,7 +118,8 @@ class UserSeeder extends Seeder
 
         $ketua_kk = User::create([
             'name' => 'Ketua KK',
-            'email' => 'yusuf.affandi@ia.itera.ac.id',
+            // 'email' => 'yusuf.affandi@ia.itera.ac.id',
+            'email' => 'dummy3@ia.itera.ac.id',
             'password' => Hash::make('123456'),
         ]);
         $ketua_kk->assignRole('Ketua KK');
@@ -136,7 +139,8 @@ class UserSeeder extends Seeder
 
         $wakil_dekan = User::create([
             'name' => 'Wakil Dekan',
-            'email' => 'rhahmi.pesma@ia.itera.ac.id',
+            // 'email' => 'rhahmi.pesma@ia.itera.ac.id',
+            'email' => 'dummy4@ia.itera.ac.id',
             'password' => Hash::make('123456'),
         ]);
         $wakil_dekan->assignRole('Wakil Dekan');

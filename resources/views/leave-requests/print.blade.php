@@ -270,8 +270,8 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
         <td colspan="2" style="text-align: right; border: 1px solid #000;">
             Hormat saya,
             <br>
-            <img src="{{ $record->employee->signature }}" alt="Employee Signature" class="signature-img" style="width: 3.15cm; height: 2.81cm; object-fit: contain;">
-            <p style="text-align: right;">{{ $record->employee->name }}</p> <!-- Signature from the database -->
+            <img src="storage/{{ (auth()->user()->custom_fields['signature']) }}" alt="Employee Signature" class="signature-img" style="width: 3.15cm; height: 2.81cm; object-fit: contain;">
+            <p style="text-align: right;">{{ auth()->user()->name }}</p> <!-- Signature from auth -->
             <p style="text-align: right;">NIP. {{ $record->employee->nip}}</p> <!-- NIP from the database -->
         </td>
     </tr>

@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Actions\Action;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\FileUpload;
+use DateTime;
 
 class LeaveRequestResource extends Resource
 {
@@ -62,7 +63,12 @@ class LeaveRequestResource extends Resource
                     ->disabled(),
                 Forms\Components\TextInput::make('working_period')
                     ->label('Masa Kerja')
-                    ->default((fn() => auth()->user()->employee->start_working))
+                    ->default(function() {
+                        $startDate = new DateTime(auth()->user()->employee->start_working);
+                        $currentDate = new DateTime();
+                        $interval = $startDate->diff($currentDate);
+                        return $interval->y . ' tahun';
+                    })
                     ->disabled(),
                 Forms\Components\TextInput::make('department')
                     ->label('Unit Kerja')
