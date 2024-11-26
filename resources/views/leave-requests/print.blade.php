@@ -104,7 +104,7 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
         </tr>
         <tr>
             <td style="width: 15%;">Nama</td>
-            <td style="width: 35%;">{{ $record->employee->name }}</td>
+            <td style="width: 35%;">{{ $record->employee->user->name }}</td>
             <td style="width: 15%;">NIP/NRK</td>
             <td style="width: 60%; border-right: 1px solid #000;"> {{ $record->employee->nip }}</td>
         </tr>
@@ -261,18 +261,18 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
     <tr>
         <td style="width: 60%; border: 1px solid #000;"></td>
         <td style="width: 10%; border: 1px solid #000;">TELP</td>
-        <td style="width: 30%; border: 1px solid #000;">*your number</td>
+        <td style="width: 30%; border: 1px solid #000;">{{$record->telepon}}</td>
     </tr>
     <tr>
         <td style="border: 1px solid #000;">
-            <textarea name="alasan_cuti" rows="4" style="width:100%; border: none;" required></textarea>
+            <div style="text-align: left; vertical-align: top;">{{ $record->alamat_cuti }}</div>
         </td>
         <td colspan="2" style="text-align: right; border: 1px solid #000;">
             Hormat saya,
             <br>
             <img src="storage/{{ (auth()->user()->custom_fields['signature']) }}" alt="Employee Signature" class="signature-img" style="width: 3.15cm; height: 2.81cm; object-fit: contain;">
-            <p style="text-align: right;">{{ auth()->user()->name }}</p> <!-- Signature from auth -->
-            <p style="text-align: right;">NIP. {{ $record->employee->nip}}</p> <!-- NIP from the database -->
+            <p style="text-align: right; margin: 0;">{{ $record->employee->user->name}}</p> <!-- Signature from auth -->
+            <p style="text-align: right; margin: 0;">NIP. {{ $record->employee->nip}}</p> <!-- NIP from the database -->
         </td>
     </tr>
 </table>
@@ -301,11 +301,11 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
         <td style="text-align: center;" >
             Ketua Kelompok Keilmuan
             <br>
-            Sistem Instrumentasi Cerdas dan Automasi
+            <p style="margin: 0;">Sistem Instrumentasi Cerdas dan Automasi</p>
             <br>
-            <img src="{{ $record->employee->signature }}" alt="Employee Signature" class="signature-img" style="width: 3.15cm; height: 2.81cm; object-fit: contain;">
-            <p style="text-align: center;">{{ $record->employee->name }}</p>
-            <p style="text-align: center;">NIP. {{ $record->employee->nip}}</p>
+            <img src="storage/signatures/01JDGFCCJZ3VTG2B0A5K3ZZXFT.png" alt="Employee Signature" class="signature-img" style="width: 3.15cm; height: 2.81cm; object-fit: contain;">
+            <p style="text-align: center; margin: 0;">(Sabar, M.Si)</p>
+            <p style="text-align: center; margin: 0;">NIP. {{ $record->employee->nip}}</p>
         </td>
     </tr>
     <tr>
@@ -330,9 +330,9 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
         <td style="text-align: center;" >
             Dekan
             <br>
-            <img src="{{ $record->employee->signature }}" alt="Employee Signature" class="signature-img" style="width: 3.15cm; height: 2.81cm; object-fit: contain;">
-            <p style="text-align: center;">{{ $record->employee->name }}</p>
-            <p style="text-align: center;">NIP. {{ $record->employee->nip}}</p>
+            <img src="storage/signatures/01JDGBCQ123HGEY866MNJJM7GB.png" alt="Employee Signature" class="signature-img" style="width: 3.15cm; height: 2.81cm; object-fit: contain;">
+            <p style="text-align: center; margin: 0;">(Hadi Teguh Yudistira, S.T., Ph.D.)</p>
+            <p style="text-align: center; margin: 0;">NIP. {{ $record->employee->nip}}</p>
         </td>
     </tr>
 </table>
