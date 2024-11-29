@@ -21,7 +21,7 @@
     </style>
 </head>
 <body>
-    <h1>Cuti.ITERA</h1>
+    <h1>Kepegawaian FTI ITERA</h1>
     <p>Dear {{ $data['nama'] }},</p>
 
     <p>This is an automated email to notify you that the following leave form request is waiting for your approval:</p>
@@ -36,8 +36,8 @@
 
     <p>If you encounter any issues, please contact us at:</p>
     <ul>
-        <li>email1@example.com</li>
-        <li>email2@example.com</li>
+        <li>yudhahamdi@gmail.com</li>
+        <li>kepegawaian@fti.itera.ac.id</li>
     </ul>
 </body>
 </html>
