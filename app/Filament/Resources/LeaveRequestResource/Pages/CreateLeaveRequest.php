@@ -7,6 +7,7 @@ use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmail;
+
 class CreateLeaveRequest extends CreateRecord
 {
     protected static string $resource = LeaveRequestResource::class;
@@ -22,7 +23,7 @@ class CreateLeaveRequest extends CreateRecord
             'alasan' => $this->record->reason
         ];
 
-        $approvers = \App\Models\User::role([3,4,5,6])->get();
+        $approvers = \App\Models\User::role([3, 4, 5, 6])->get();
         foreach ($approvers as $approver) {
             if ($approver->email) {
                 try {
@@ -34,7 +35,12 @@ class CreateLeaveRequest extends CreateRecord
                 }
             }
         }
+
+        //email ke ketua kk (based on parent_id)
+        if (auth()->user()->parent_id) {
+            Mail::to(auth()->user()->parent->email)->queue(new SendEmail($data));
+        }
+        
         // Mail::to('yudha.arzi@ia.itera.ac.id')->send(new SendEmail($data));
     }
 }
-    

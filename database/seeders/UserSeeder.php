@@ -126,6 +126,17 @@ class UserSeeder extends Seeder
         $ketua_kk->givePermissionTo($permissions);
         $this->command->info('Ketua KK role has been created.');
 
+
+
+        $employeewithparent = User::create([
+            'name' => 'Employee with parent',
+            'email' => 'employeewithparent@gmail.com',
+            'password' => Hash::make('123456'),
+            'parent_id' => $ketua_kk->id,
+        ]);
+        $employeewithparent->assignRole('Employee');
+        $employeewithparent->givePermissionTo($permissions);
+
         /* Wakil Dekan Role */
         $this->command->warn(PHP_EOL . 'Creating wakil dekan role...');
         $role = Role::create(['name' => 'Wakil Dekan']);       
