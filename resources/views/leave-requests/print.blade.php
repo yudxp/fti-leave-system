@@ -18,6 +18,18 @@ $year = $today->format('Y');                   // Full year
 // Format the date as "Day, Date Month Year" in Indonesian (e.g., "Kamis, 9 November 2024")
 $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
 
+// Check if $record and its properties are set before accessing them
+$employeeName = isset($record->employee->user->name) ? $record->employee->user->name : 'N/A';
+$employeeNip = isset($record->employee->nip) ? $record->employee->nip : 'N/A';
+$employeePosition = isset($record->employee->position) ? $record->employee->position : 'N/A';
+$employeeDepartment = isset($record->employee->department) ? $record->employee->department : 'N/A';
+$leaveTypeName = isset($record->leaveType->name) ? $record->leaveType->name : 'N/A';
+$reason = isset($record->reason) ? $record->reason : '';
+$startDate = isset($record->start_date) ? new DateTime($record->start_date) : null;
+$endDate = isset($record->end_date) ? new DateTime($record->end_date) : null;
+$telepon = isset($record->telepon) ? $record->telepon : 'N/A';
+$alamatCuti = isset($record->alamat_cuti) ? $record->alamat_cuti : '';
+
 // Display the date
 ?>
 <!DOCTYPE html>
@@ -104,26 +116,30 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
         </tr>
         <tr>
             <td style="width: 15%;">Nama</td>
-            <td style="width: 35%;">{{ $record->employee->user->name }}</td>
+            <td style="width: 35%;"><?= $employeeName ?></td>
             <td style="width: 15%;">NIP/NRK</td>
-            <td style="width: 60%; border-right: 1px solid #000;"> {{ $record->employee->nip }}</td>
+            <td style="width: 60%; border-right: 1px solid #000;"><?= $employeeNip ?></td>
         </tr>
         <tr>
             <td>Jabatan</td>
-            <td>{{ $record->employee->position }}</td>
+            <td><?= $employeePosition ?></td>
             <td>Masa Kerja</td>
             <td style="border-right: 1px solid #000;">
                 <?php
-                $startDate = new DateTime($record->employee->start_working);
-                $currentDate = new DateTime();
-                $interval = $startDate->diff($currentDate);
-                echo $interval->y . ' tahun ';
+                if (isset($record->employee->start_working)) {
+                    $startDate = new DateTime($record->employee->start_working);
+                    $currentDate = new DateTime();
+                    $interval = $startDate->diff($currentDate);
+                    echo $interval->y . ' tahun ';
+                } else {
+                    echo 'N/A';
+                }
                 ?>
             </td>
         </tr>
         <tr>
             <td>Unit Kerja</td>
-            <td>{{ $record->employee->department }}</td>
+            <td><?= $employeeDepartment ?></td>
             <td></td>
             <td></td>
         </tr>
@@ -138,13 +154,13 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
     <tr>
         <td style="white-space: nowrap;">1. Cuti Tahunan</td>
         <td style="text-align: center;">
-            @if ($record->leaveType->name == "Annual Leave")
+            @if ($leaveTypeName == "Annual Leave")
                 ✔
             @endif
         </td>
         <td style="white-space: nowrap;">2. Cuti Besar</td>
         <td style="text-align: center;">
-            @if ($record->leaveType->name == "Long Leave")
+            @if ($leaveTypeName == "Long Leave")
                 ✔
             @endif
         </td>
@@ -152,13 +168,13 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
     <tr>
         <td style="white-space: nowrap;">3. Cuti Sakit</td>
         <td style="text-align: center;">
-            @if ($record->leaveType->name == "Sick Leave")
+            @if ($leaveTypeName == "Sick Leave")
                 ✔
             @endif
         </td>
         <td style="white-space: nowrap;">4. Cuti Melahirkan</td>
         <td style="text-align: center;">
-            @if ($record->leaveType->name == "Maternity Leave")
+            @if ($leaveTypeName == "Maternity Leave")
                 ✔
             @endif
         </td>
@@ -166,13 +182,13 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
     <tr>
         <td style="white-space: nowrap;">5. Cuti Karena Alasan Penting</td>
         <td style="text-align: center;">
-            @if ($record->leaveType->name == "Important Leave")
+            @if ($leaveTypeName == "Important Leave")
                 ✔
             @endif
         </td>
         <td style="white-space: nowrap;">6. Cuti di Luar Tanggungan Negara</td>
         <td style="text-align: center;">
-            @if ($record->leaveType->name == "Without State Expenses")
+            @if ($leaveTypeName == "Without State Expenses")
                 ✔
             @endif
         </td>
@@ -186,7 +202,7 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
     </tr>
     <tr>
         <td colspan="4" style="text-align: left;">
-            <textarea name="alasan_cuti" rows="4" style="width:100%; border: none;" required>{{ $record->reason }}</textarea>
+            <textarea name="alasan_cuti" rows="4" style="width:100%; border: none;" required><?= $reason ?></textarea>
         </td>
     </tr>
 </table>
@@ -200,16 +216,18 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
         <td>Selama</td>
         <td>
         <?php
-            $startDate = new DateTime($record->start_date);
-            $endDate = new DateTime($record->end_date);
-            $interval = $startDate->diff($endDate);
-            echo $interval->d . ' hari ';
+            if ($startDate && $endDate) {
+                $interval = $startDate->diff($endDate);
+                echo $interval->d . ' hari ';
+            } else {
+                echo 'N/A';
+            }
         ?>
         </td>
         <td>Mulai Tanggal</td>
-        <td>{{$record->start_date}}</td>
+        <td><?= $startDate ? $startDate->format('d-m-Y') : 'N/A' ?></td>
         <td>s/d</td>
-        <td>{{$record->end_date}}</td>
+        <td><?= $endDate ? $endDate->format('d-m-Y') : 'N/A' ?></td>
     </tr>
 </table>
 
@@ -261,18 +279,21 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
     <tr>
         <td style="width: 60%; border: 1px solid #000;"></td>
         <td style="width: 10%; border: 1px solid #000;">TELP</td>
-        <td style="width: 30%; border: 1px solid #000;">{{$record->telepon}}</td>
+        <td style="width: 30%; border: 1px solid #000;"><?= $telepon ?></td>
     </tr>
     <tr>
         <td style="border: 1px solid #000;">
-            <div style="text-align: left; vertical-align: top;">{{ $record->alamat_cuti }}</div>
+            <div style="text-align: left; vertical-align: top;"><?= $alamatCuti ?></div>
         </td>
         <td colspan="2" style="text-align: right; border: 1px solid #000;">
             Hormat saya,
             <br>
-            <img src="storage/{{ (auth()->user()->custom_fields['signature']) }}" alt="Employee Signature" class="signature-img" style="width: 3.15cm; height: 2.81cm; object-fit: contain;">
-            <p style="text-align: right; margin: 0;">{{ $record->employee->user->name}}</p> <!-- Signature from auth -->
-            <p style="text-align: right; margin: 0;">NIP. {{ $record->employee->nip}}</p> <!-- NIP from the database -->
+            <?php
+            $signaturePath = isset(auth()->user()->custom_fields['signature']) ? auth()->user()->custom_fields['signature'] : 'default-signature.png';
+            ?>
+            <img src="storage/{{ $signaturePath }}" alt="Employee Signature" class="signature-img" style="width: 3.15cm; height: 2.81cm; object-fit: contain;">
+            <p style="text-align: right; margin: 0;"><?= $employeeName ?></p> <!-- Signature from auth -->
+            <p style="text-align: right; margin: 0;">NIP. <?= $employeeNip ?></p> <!-- NIP from the database -->
         </td>
     </tr>
 </table>
@@ -305,7 +326,7 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
             <br>
             <img src="storage/signatures/01JDGFCCJZ3VTG2B0A5K3ZZXFT.png" alt="Employee Signature" class="signature-img" style="width: 3.15cm; height: 2.81cm; object-fit: contain;">
             <p style="text-align: center; margin: 0;">(Sabar, M.Si)</p>
-            <p style="text-align: center; margin: 0;">NIP. {{ $record->employee->nip}}</p>
+            <p style="text-align: center; margin: 0;">NIP. <?= $employeeNip ?></p>
         </td>
     </tr>
     <tr>
@@ -332,7 +353,7 @@ $formattedDate = "{$dayOfWeek}, {$dayOfMonth} {$month} {$year}";
             <br>
             <img src="storage/signatures/01JDGBCQ123HGEY866MNJJM7GB.png" alt="Employee Signature" class="signature-img" style="width: 3.15cm; height: 2.81cm; object-fit: contain;">
             <p style="text-align: center; margin: 0;">(Hadi Teguh Yudistira, S.T., Ph.D.)</p>
-            <p style="text-align: center; margin: 0;">NIP. {{ $record->employee->nip}}</p>
+            <p style="text-align: center; margin: 0;">NIP. <?= $employeeNip ?></p>
         </td>
     </tr>
 </table>
